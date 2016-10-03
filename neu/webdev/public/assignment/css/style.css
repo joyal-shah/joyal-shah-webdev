@@ -3,5 +3,101 @@ input.form-control {
 }
 
 body {
-    padding-top: 36px;
+    padding-top: 65px;
+    padding-bottom: 45px;
+}
+
+.up{
+    position: absolute;
+    padding-right: 0px;
+    height: 25px;
+}
+
+.topMargin{
+    margin-top:0px;
+}
+
+.rightMargin{
+    margin-right:10px;
+}
+
+.widget-Pos{
+    position: relative;
+}
+
+.widget-style{
+    background-color: white;
+    border-bottom-left-radius: 5px;
+}
+
+.v-divider{
+    height:103%;
+    border-right:1px solid #cccccc;
+    margin-top: -20px;
+}
+
+.topMargin{
+    margin-top: 10px;
+}
+
+.topNMargin{
+    margin-top: -7px;
+}
+
+.sidebar{
+    height:100%;
+    border-right:1px solid #cccccc;
+}
+.topPadding{
+    padding-top: 10px;
+}
+.navbar-default{
+    background-color: #337AB7;
+    border-color:#2E6DA4;
+    color: #fff;
+}
+
+.navbar-default .navbar-text{
+    color: #fff;
+}
+
+.navbar-default .navbar-text a{
+    color: #fff;
+}
+
+.navbar-default .navbar-brand{
+    color: #fff;
+}
+
+.blue{
+    color: #337AB7;
+}
+
+.right{
+    float: right;
+}
+
+.anchorMargin{
+    margin: 10px;
+}
+
+a:hover{
+    text-decoration: none;
+}
+a:visited{
+    text-decoration: none;
+}
+
+.navbar-default .navbar-brand:focus, .navbar-default .navbar-brand:hover{
+    color: white;
+    background-color: transparent;
+}
+
+.navbar-header {
+    width:100%;
+}
+
+.paddingRightLeft{
+    padding-left: 5px;
+    padding-right: 5px;
 }

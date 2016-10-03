@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Widget Image</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="HandheldFriendly" content="true">
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
+                <p class="navbar-text pull-left">
+                    <a href="widget-list.html">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                </p>
+                <span class="navbar-brand pull-left">Widget Edit</span>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                <p class="navbar-text pull-right">
+                    <a href="widget-list.html">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <form action="widget-list.html">
+        <div class="form-group">
+            <label for="widgetName">Name</label>
+            <input type="text" id="widgetName" class="form-control" placeholder="Widget Name"/>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="widgetText">Text</label>
+                <input type="text" id="widgetText" class="form-control" value="US Senate reaches" placeholder="Widget Text"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="widgetURL">URL</label>
+                <input type="url" id="widgetURL" class="form-control" value="https://youtu.be/uLWLashCXHE" placeholder="Widget URL"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="widgetWidth">Width</label>
+                <input type="text" id="widgetWidth" class="form-control" value="100%" placeholder="Widget Width"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <div class="form-group">
+                <label for="widgetUpload">Upload</label>
+                <input type="file" id="widgetUpload" class="form-control"/>
+            </div>
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-block btn-primary">Upload Image</button>
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-block btn-danger">Delete</button>
+        </div>
+    </form>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-11 col-sm-12 col-md-12 col-lg-12">
+                <p class="navbar-text pull-right">
+                    <a href="profile.html">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</nav>
+
+</body>
+</html>
