@@ -13,10 +13,6 @@ body {
     height: 25px;
 }
 
-.topMargin{
-    margin-top:0px;
-}
-
 .rightMargin{
     margin-right:10px;
 }
@@ -34,6 +30,7 @@ body {
     height:103%;
     border-right:1px solid #cccccc;
     margin-top: -20px;
+    height:86vh;
 }
 
 .topMargin{

@@ -1,21 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Widget YouTube</title>
-    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
-    <meta name="HandheldFriendly" content="true">
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
-    <link href="css/style.css" rel="stylesheet"/>
-</head>
-<body>
-
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
         <div class="row">
             <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
                 <p class="navbar-text pull-left">
-                    <a href="widget-list.html">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
                         <span class="glyphicon glyphicon-chevron-left"></span>
                     </a>
                 </p>
@@ -23,7 +11,7 @@
             </div>
             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
                 <p class="navbar-text pull-right">
-                    <a href="widget-list.html">
+                    <a href ng-click="model.updateWidget()">
                         <span class="glyphicon glyphicon-ok"></span>
                     </a>
                 </p>
@@ -33,7 +21,7 @@
 </nav>
 
 <div class="container-fluid">
-    <form action="widget-list.html">
+    <form>
         <div class="form-group">
             <label for="widgetName">Name</label>
             <input type="text" id="widgetName" class="form-control" placeholder="Widget Name"/>
@@ -41,23 +29,17 @@
         <div class="form-group">
             <div class="form-group">
                 <label for="widgetText">Text</label>
-                <input type="text" id="widgetText" class="form-control" value="US Senate reaches" placeholder="Widget Text"/>
+                <input type="text" id="widgetText" ng-model="model.currentWidget.text" class="form-control" placeholder="Widget Text"/>
             </div>
         </div>
         <div class="form-group">
             <div class="form-group">
-                <label for="widgetURL">URL</label>
-                <input type="url" id="widgetURL" class="form-control" value="https://youtu.be/uLWLashCXHE" placeholder="Widget URL"/>
+                <label for="widgetSize">Size</label>
+                <input type="number" id="widgetSize" class="form-control" ng-model="model.currentWidget.size" placeholder="Widget Size"/>
             </div>
         </div>
         <div class="form-group">
-            <div class="form-group">
-                <label for="widgetWidth">Width</label>
-                <input type="text" id="widgetWidth" class="form-control" placeholder="Widget Width"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <button type="submit" class="btn btn-block btn-danger">Delete</button>
+            <button ng-click="model.deleteWidget()" class="btn btn-block btn-danger">Delete</button>
         </div>
     </form>
 </div>
@@ -67,7 +49,7 @@
         <div class="row">
             <div class="col-xs-11 col-sm-12 col-md-12 col-lg-12">
                 <p class="navbar-text pull-right">
-                    <a href="profile.html">
+                    <a href="#/user/{{model.userId}}">
                         <span class="glyphicon glyphicon-user"></span>
                     </a>
                 </p>
@@ -75,6 +57,3 @@
         </div>
     </div>
 </nav>
-
-</body>
-</html>

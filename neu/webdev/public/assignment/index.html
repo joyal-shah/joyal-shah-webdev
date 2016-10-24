@@ -1,18 +1,35 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="WebAppMaker">
 <head>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
+
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="config.js"></script>
+
+    <!-- Referencing Service JS -->
+    <script type="text/javascript" src="services/user.service.client.js"></script>
+    <script type="text/javascript" src="services/website.service.client.js"></script>
+    <script type="text/javascript" src="services/page.service.client.js"></script>
+    <script type="text/javascript" src="services/widget.service.client.js"></script>
+
+    <!-- Referencing Controller JS -->
+    <script type="text/javascript" src="views/user/user.controller.client.js"></script>
+    <script type="text/javascript" src="views/website/website.controller.client.js"></script>
+    <script type="text/javascript" src="views/page/page.controller.client.js"></script>
+    <script type="text/javascript" src="views/widget/widget.controller.client.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
     <meta charset="UTF-8">
     <title>Assignment Home Page</title>
-
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
+    <meta name="HandheldFriendly" content="true">
 </head>
 <body>
-    <h1>Assignment Home Page</h1>
-    <a href="login.html">
-        Login
-    </a>
-    <br/><br/>
-    <a href="register.html">
-        Register
-    </a>
+    <div ng-view>
+
+    </div>
 </body>
 </html>
