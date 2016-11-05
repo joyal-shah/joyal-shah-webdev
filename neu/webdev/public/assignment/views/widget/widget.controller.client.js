@@ -3,7 +3,7 @@
         .module("WebAppMaker")
         .controller("WidgetListController",WidgetListController)
         .controller("NewWidgetController", NewWidgetController)
-        .controller("EditWidgetController", EditWidgetController)
+        .controller("EditWidgetController", EditWidgetController);
 
     function WidgetListController($sce, $routeParams, $location, WidgetService){
         var vm = this;
@@ -16,7 +16,14 @@
             vm.userId = $routeParams['uid'];
             vm.websiteId = $routeParams['wid'];
             vm.pageId = $routeParams['pid'];
-            vm.widgets = WidgetService.findWidgetsByPageId(vm.pageId);
+
+            WidgetService.findWidgetsByPageId(vm.pageId)
+                .success(function (widgetsFound) {
+                    vm.widgets = widgetsFound;
+                })
+                .error(function (err) {
+                    vm.error = "Error while fetching widgets!! Please try after sometime";
+                });
         }
         init();
 
@@ -48,8 +55,16 @@
             vm.userId = $routeParams['uid'];
             vm.websiteId = $routeParams['wid'];
             vm.pageId = $routeParams['pid'];
-            vm.currentWidgetId = $routeParams['wgid'];
-            vm.currentWidget = WidgetService.findWidgetById(vm.currentWidgetId);
+            //vm.currentWidgetId = $routeParams['wgid'];
+            //vm.currentWidget = WidgetService.findWidgetById(vm.currentWidgetId);
+            /*
+            WidgetService.findWidgetById(vm.currentWidgetId)
+                .success(function(curWidget){
+                    vm.currentWidget = curWidget;
+                })
+                .error(function(err){
+                    vm.error = "Error while fetching current widget!! Please try after sometime";
+                });*/
             vm.newWidgetHeader = {_id: "", widgetType: "HEADER", pageId: vm.pageId, size: 2, text: "New Header Text"};
             vm.newWidgetImage = {_id: "", widgetType: "IMAGE", pageId: vm.pageId, width: "100%", url: "http://lorempixel.com/400/200/"};
             vm.newWidgetYouTube = {_id: "", widgetType: "YOUTUBE", pageId: vm.pageId, width: "100%", url: "https://youtu.be/AM2Ivdi9c4E"};
@@ -57,7 +72,15 @@
         init();
 
         function createNewWidget(newWidget){
+            WidgetService.createWidget(vm.pageId, newWidget)
+                .success(function(widgetCreated){
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + widgetCreated._id);
+                })
+                .error(function (err) {
+                    vm.error = "Failed to create new widget";
+                });
 
+            /*
             var widgetCreated = WidgetService.createWidget(vm.pageId, newWidget);
 
             if (widgetCreated._id != 0) {
@@ -66,7 +89,7 @@
             }
             else {
                 vm.error = "Failed to create new widget";
-            }
+            }*/
 
         }
     }
@@ -81,30 +104,51 @@
             vm.websiteId = $routeParams['wid'];
             vm.pageId = $routeParams['pid'];
             vm.currentWidgetId = $routeParams['wgid'];
-            vm.currentWidget = WidgetService.findWidgetById(vm.currentWidgetId);
+            //vm.currentWidget = WidgetService.findWidgetById(vm.currentWidgetId);
+            WidgetService.findWidgetById(vm.currentWidgetId)
+                .success(function(curWidget){
+                    vm.currentWidget = curWidget;
+                })
+                .error(function(err){
+                    vm.error = "Error while fetching current widget!! Please try after sometime";
+                });
         }
         init();
 
         function updateWidget(){
-            var updateSuccessful = WidgetService.updateWidget(vm.currentWidgetId, vm.currentWidget);
+            WidgetService.updateWidget(vm.currentWidgetId, vm.currentWidget)
+                .then(function(response){
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                },function(err){
+                    vm.error = "Failed to update widget";
+                });
+
+            /*var updateSuccessful = WidgetService.updateWidget(vm.currentWidgetId, vm.currentWidget);
             if (updateSuccessful) {
                 // Redirect to widget list page
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
             }
             else {
                 vm.error = "Failed to update widget";
-            }
+            }*/
         }
 
         function deleteWidget(){
-            var deleteSuccessful = WidgetService.deleteWidget(vm.currentWidgetId);
+            WidgetService.deleteWidget(vm.currentWidgetId)
+                .success(function(res){
+                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                })
+                .error(function(err){
+                    vm.error = "Failed to delete widget";
+                });
+            /*var deleteSuccessful = WidgetService.deleteWidget(vm.currentWidgetId);
             if(deleteSuccessful){
                 // Redirect to widget list page
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
             }
             else{
                 vm.error = "Failed to delete widget";
-            }
+            }*/
         }
     }
 })();
