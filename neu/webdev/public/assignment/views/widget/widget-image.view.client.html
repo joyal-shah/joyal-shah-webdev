@@ -21,7 +21,7 @@
 </nav>
 
 <div class="container-fluid">
-    <form>
+    <form action="/api/upload"  method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="widgetName">Name</label>
             <input type="text" id="widgetName" class="form-control" placeholder="Widget Name"/>
@@ -45,13 +45,14 @@
             </div>
         </div>
         <div class="form-group">
-            <div class="form-group">
-                <label for="widgetUpload">Upload</label>
-                <input type="file" id="widgetUpload" class="form-control"/>
-            </div>
-        </div>
-        <div class="form-group">
-            <button type="button" class="btn btn-block btn-primary">Upload Image</button>
+            <label for="widgetUpload">Upload</label>
+            <input  name="myFile"  id="widgetUpload" type="file" class="form-control"/>
+            <input  name="width"    value="{{model.currentWidget.width}}" style="display: none"/>
+            <input  name="widgetId" value="{{model.currentWidget._id}}"   style="display: none"/>
+            <input  name="userId" value="{{model.userId}}"   style="display: none"/>
+            <input  name="websiteId" value="{{model.websiteId}}"   style="display: none"/>
+            <input  name="pageId" value="{{model.pageId}}"   style="display: none"/>
+            <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
         </div>
         <div class="form-group">
             <button ng-click="model.deleteWidget()" class="btn btn-block btn-danger">Delete</button>
