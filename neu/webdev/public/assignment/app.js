@@ -1,3 +1,3 @@
 (function(){
-    angular.module("WebAppMaker", ["ngRoute", "wamDirectives"]);
+    angular.module("WebAppMaker", ["ngRoute","jgaDirectives"]);
 })();

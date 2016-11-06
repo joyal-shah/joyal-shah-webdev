@@ -15,6 +15,7 @@ module.exports = function (app) {
     app.get("/api/widget/:widgetId", findWidgetById);
     app.put("/api/widget/:widgetId", updateWidget);
     app.delete("/api/widget/:widgetId", deleteWidget);
+    app.put("/page/:pageId/widget",updateWidgetOrder);
 
     function createWidget(req,res){
         var newWidget = req.body;
@@ -86,4 +87,9 @@ module.exports = function (app) {
         res.sendStatus(deleteSuccessful);
     }
 
+    function updateWidgetOrder(req,res){
+        var start = req.query.initial;
+        var end = req.query.final;
+        widgets.splice(end, 0, widgets.splice(start, 1)[0]);
+    }
 }

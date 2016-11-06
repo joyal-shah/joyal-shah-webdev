@@ -61,14 +61,6 @@
 
         // Removes the user whose _id matches the userId parameter
         function deleteUser(userId) {
-            /*
-             for(var index=0;index<users.length;index++){
-             if(users[index] === userId){
-             users.splice(index,1);
-             break;
-             }
-             }
-             return users;*/
             var url = "/api/user/" + userId;
             return $http.delete(url);
         }

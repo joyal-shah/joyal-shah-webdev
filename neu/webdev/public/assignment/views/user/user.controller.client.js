@@ -70,7 +70,7 @@
 
             if (user.password === user.verifypassword) {
                 var findUserPromise = UserService.findUserByUsername(user.username);
-                console.log(findUserPromise);
+
                 findUserPromise
                     .success(function (user) {
                         vm.error = "User already existing!! Please try different username";
