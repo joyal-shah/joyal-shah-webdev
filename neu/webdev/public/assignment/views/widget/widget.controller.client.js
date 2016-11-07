@@ -55,16 +55,7 @@
             vm.userId = $routeParams['uid'];
             vm.websiteId = $routeParams['wid'];
             vm.pageId = $routeParams['pid'];
-            //vm.currentWidgetId = $routeParams['wgid'];
-            //vm.currentWidget = WidgetService.findWidgetById(vm.currentWidgetId);
-            /*
-            WidgetService.findWidgetById(vm.currentWidgetId)
-                .success(function(curWidget){
-                    vm.currentWidget = curWidget;
-                })
-                .error(function(err){
-                    vm.error = "Error while fetching current widget!! Please try after sometime";
-                });*/
+
             vm.newWidgetHeader = {_id: "", widgetType: "HEADER", pageId: vm.pageId, size: 2, text: "New Header Text"};
             vm.newWidgetImage = {_id: "", widgetType: "IMAGE", pageId: vm.pageId, width: "100%", url: "http://lorempixel.com/400/200/"};
             vm.newWidgetYouTube = {_id: "", widgetType: "YOUTUBE", pageId: vm.pageId, width: "100%", url: "https://youtu.be/AM2Ivdi9c4E"};
@@ -79,18 +70,6 @@
                 .error(function (err) {
                     vm.error = "Failed to create new widget";
                 });
-
-            /*
-            var widgetCreated = WidgetService.createWidget(vm.pageId, newWidget);
-
-            if (widgetCreated._id != 0) {
-                // Redirecting to widget edit page
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + widgetCreated._id);
-            }
-            else {
-                vm.error = "Failed to create new widget";
-            }*/
-
         }
     }
 
@@ -104,7 +83,7 @@
             vm.websiteId = $routeParams['wid'];
             vm.pageId = $routeParams['pid'];
             vm.currentWidgetId = $routeParams['wgid'];
-            //vm.currentWidget = WidgetService.findWidgetById(vm.currentWidgetId);
+
             WidgetService.findWidgetById(vm.currentWidgetId)
                 .success(function(curWidget){
                     vm.currentWidget = curWidget;
@@ -115,22 +94,55 @@
         }
         init();
 
-        function updateWidget(){
-            WidgetService.updateWidget(vm.currentWidgetId, vm.currentWidget)
-                .then(function(response){
-                    $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-                },function(err){
-                    vm.error = "Failed to update widget";
-                });
+        function validateWidgetType(widgetToTest){
+            var validationFailed = false;
 
-            /*var updateSuccessful = WidgetService.updateWidget(vm.currentWidgetId, vm.currentWidget);
-            if (updateSuccessful) {
-                // Redirect to widget list page
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+            switch(widgetToTest.widgetType){
+                case "HEADER":
+                    if(widgetToTest.text == '' || widgetToTest.text == null){
+                        validationFailed = true;
+                    }
+                    break;
+                case "IMAGE":
+                    if(widgetToTest.url == '' || widgetToTest.url == null){
+                        validationFailed = true;
+                    }
+                    break;
+                case "YOUTUBE":
+                    if(widgetToTest.url == '' || widgetToTest.url == null){
+                        validationFailed = true;
+                    }
+                    break;
+            }
+
+            return validationFailed;
+        }
+
+        function updateWidget(){
+            if(validateWidgetType(vm.currentWidget)){
+                switch(vm.currentWidget.widgetType) {
+                    case "HEADER":
+                        vm.error = "Header Text cannot be blank";
+                        break;
+                    case "IMAGE":
+                        vm.error = "Image Url cannot be blank";
+                        break;
+                    case "YOUTUBE":
+                        vm.error = "Video Url cannot be blank";
+                        break;
+                    default:
+                        vm.error = "There is something wrong. Please check whether form fields are correctly filled."
+                        break;
+                }
             }
             else {
-                vm.error = "Failed to update widget";
-            }*/
+                WidgetService.updateWidget(vm.currentWidgetId, vm.currentWidget)
+                    .then(function (response) {
+                        $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
+                    }, function (err) {
+                        vm.error = "Failed to update widget";
+                    });
+            }
         }
 
         function deleteWidget(){
@@ -141,14 +153,6 @@
                 .error(function(err){
                     vm.error = "Failed to delete widget";
                 });
-            /*var deleteSuccessful = WidgetService.deleteWidget(vm.currentWidgetId);
-            if(deleteSuccessful){
-                // Redirect to widget list page
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget");
-            }
-            else{
-                vm.error = "Failed to delete widget";
-            }*/
         }
     }
 })();

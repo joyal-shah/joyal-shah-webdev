@@ -2,7 +2,7 @@
     angular
         .module("jgaDirectives", [])
         .directive("jgaSortable",function(){
-            console.log("In sortable");
+
             function linker(scope, element, attributes){
                 var start = -1;
                 var end = -1;

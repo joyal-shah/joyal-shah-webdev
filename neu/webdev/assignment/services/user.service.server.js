@@ -37,6 +37,7 @@ module.exports = function (app) {
             if (users[u]._id == uid) {
                 users[u] = user;
                 res.sendStatus(200);
+                return;
             }
         }
         res.sendStatus(400);
