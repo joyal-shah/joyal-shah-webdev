@@ -24,7 +24,7 @@
     <div ng-show="model.error" class="alert alert-danger" role="alert">
         {{model.error}}
     </div>
-    <form action="/api/upload"  method="post" enctype="multipart/form-data">
+    <form action="/api/upload" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="widgetName">Name</label>
             <input type="text" id="widgetName" class="form-control" placeholder="Widget Name"/>
@@ -32,32 +32,35 @@
         <div class="form-group">
             <div class="form-group">
                 <label for="widgetText">Text</label>
-                <input type="text" id="widgetText" class="form-control" ng-model="model.currentWidget.text" placeholder="Widget Text"/>
+                <input type="text" id="widgetText" class="form-control" ng-model="model.currentWidget.text"
+                       placeholder="Widget Text"/>
             </div>
         </div>
         <div class="form-group">
             <div class="form-group">
                 <label for="widgetURL">URL</label>
-                <input type="url" id="widgetURL" class="form-control" ng-model="model.currentWidget.url" placeholder="Widget URL"/>
+                <input type="url" id="widgetURL" class="form-control" ng-model="model.currentWidget.url"
+                       placeholder="Widget URL"/>
             </div>
         </div>
         <div class="form-group">
             <div class="form-group">
                 <label for="widgetWidth">Width</label>
-                <input type="text" id="widgetWidth" class="form-control" ng-model="model.currentWidget.width" placeholder="Widget Width"/>
+                <input type="text" id="widgetWidth" class="form-control" ng-model="model.currentWidget.width"
+                       placeholder="Widget Width"/>
             </div>
         </div>
         <div class="form-group">
             <label for="widgetUpload">Upload</label>
-            <input  name="myFile"  id="widgetUpload" type="file" class="form-control"/>
-            <input  name="width"    value="{{model.currentWidget.width}}" style="display: none"/>
-            <input  name="widgetId" value="{{model.currentWidget._id}}"   style="display: none"/>
-            <input  name="userId" value="{{model.userId}}"   style="display: none"/>
-            <input  name="websiteId" value="{{model.websiteId}}"   style="display: none"/>
-            <input  name="pageId" value="{{model.pageId}}"   style="display: none"/>
+            <input name="myFile" id="widgetUpload" type="file" class="form-control"/>
+            <input name="width" value="{{model.currentWidget.width}}" style="display: none"/>
+            <input name="widgetId" value="{{model.currentWidget._id}}" style="display: none"/>
+            <input name="userId" value="{{model.userId}}" style="display: none"/>
+            <input name="websiteId" value="{{model.websiteId}}" style="display: none"/>
+            <input name="pageId" value="{{model.pageId}}" style="display: none"/>
             <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
-        </div>
-        <div class="form-group">
+            <a class="btn btn-primary btn-block"
+               href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.currentWidgetId}}/flickr">Search</a>
             <button ng-click="model.deleteWidget()" class="btn btn-block btn-danger">Delete</button>
         </div>
     </form>
