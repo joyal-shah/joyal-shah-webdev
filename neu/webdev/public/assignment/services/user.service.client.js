@@ -16,29 +16,9 @@
         };
         return api;
 
-        // Generates a unique random integer
-        function getNewUserId() {
-            var date = new Date();
-
-            var components = [
-                date.getYear(),
-                date.getMonth(),
-                date.getDate(),
-                date.getHours(),
-                date.getMinutes(),
-                date.getSeconds(),
-                date.getMilliseconds()
-            ];
-
-            var id = components.join("");
-
-            return id;
-        }
-
         // Adds the user parameter instance to the local users array
         function createUser(user) {
             var newUser = {
-                _id: getNewUserId(),
                 username: user.username,
                 password: user.password,
                 firstName: "",
