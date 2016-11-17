@@ -108,7 +108,6 @@ module.exports = function (app, model) {
     function updateWidgetOrder(req, res) {
         var start = req.query.initial;
         var end = req.query.final;
-        //widgets.splice(end, 0, widgets.splice(start, 1)[0]);
     }
 
     function uploadImage(req, res) {
@@ -126,14 +125,31 @@ module.exports = function (app, model) {
         var size = myFile.size;
         var mimetype = myFile.mimetype;
 
-        /*
-         for (var i in widgets) {
-         if (widgets[i]._id === widgetId) {
-         widgets[i].url = "/uploads/" + filename;
-         }
-         }*/
+        model
+            .widgetModel
+            .findWidgetById(widgetId)
+            .then(
+                function (widget) {
+                    // Set the url for the widget
+                    widget.url = "/uploads/" + filename;
 
-        res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
+                    // Update existing widget and redirect
+                    model
+                        .widgetModel
+                        .updateWidget(widgetId, widget)
+                        .then(
+                            function (updatedWidget) {
+                                res.redirect("/assignment/#/user/" + userId + "/website/" + websiteId + "/page/" + pageId + "/widget/" + widgetId);
+                            },
+                            function (failedUpdate) {
+                                res.sendStatus(400).send(failedUpdate);
+                            }
+                        );
+                },
+                function (error) {
+                    res.sendStatus(400).send(error);
+                }
+            );
     }
 
 };

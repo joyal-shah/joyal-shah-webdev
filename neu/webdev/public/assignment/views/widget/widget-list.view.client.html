@@ -42,6 +42,19 @@
                 <div ng-switch-when="YOUTUBE" class="img-rounded col-xs-12 youtube-widget">
                     <iframe height="345" ng-src={{model.checkSafeURL(widget.url)}} width={{widget.width}}></iframe>
                 </div>
+
+                <div ng-switch-when="INPUT" class="img-rounded col-xs-12">
+
+                    <div ng-if="widget.formatted" text-angular ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+        ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+        ['indent','outdent'],['html']]" ng-model="widget.text"></div>
+                    <input ng-if="!widget.formatted && (!widget.rows || widget.rows===1)"
+                           placeholder="{{widget.textInput.placeholder}}" class="form-control"/>
+                    <textarea ng-if="!widget.formatted && (widget.rows > 1)"
+                              rows="{{widget.rows}}" placeholder="{{widget.placeholder}}"
+                              class="form-control">{{widget.text}}</textarea>
+                </div>
+
             </div>
             <div class="row">
                 <div class=" col-xs-2 col-sm-2 col-mid-1 col-lg-1 col-xs-offset-10 col-sm-offset-10 col-mid-offset-11 col-lg-offset-11 up">

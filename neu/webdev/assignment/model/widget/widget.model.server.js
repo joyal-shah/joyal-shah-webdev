@@ -20,7 +20,6 @@ module.exports = function () {
             .find({"_page": pageId})
             .then(
                 function(widgets){
-                    console.log(widgets);
                     widget.order = widgets.length;
                     return WidgetModel.create(widget);
                 },

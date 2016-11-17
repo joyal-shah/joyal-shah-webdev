@@ -32,9 +32,7 @@
         }
 
         function editRedirect(wdg){
-            if(wdg.type != "HTML") {
-                $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + wdg._id);
-            }
+            $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + wdg._id);
         }
 
         function checkSafeURL(widgetURL) {
@@ -56,11 +54,11 @@
             vm.websiteId = $routeParams['wid'];
             vm.pageId = $routeParams['pid'];
 
-            vm.newWidgetHeader = {name:"newWidget", type: "HEADING", size: 2, text: "New Header Text"};
-            vm.newWidgetImage = {name:"newWidget", type: "IMAGE", width: "100%", url: "http://lorempixel.com/400/200/"};
-            vm.newWidgetYouTube = {name:"newWidget", type: "YOUTUBE", width: "100%", url: "https://youtu.be/AM2Ivdi9c4E"};
-            vm.newWidgetHTML = {name:"newWidget", type: "HTML"};
-            vm.newWidgetTEXT = {name:"newWidget", type: "INPUT"};
+            vm.newWidgetHeader = {name:"Header Widget", type: "HEADING", size: 2, text: "New Header Text"};
+            vm.newWidgetImage = {name:"Image Widget", type: "IMAGE", width: "100%", url: "http://lorempixel.com/400/200/"};
+            vm.newWidgetYouTube = {name:"Youtube Widget", type: "YOUTUBE", width: "100%", url: "https://youtu.be/AM2Ivdi9c4E"};
+            vm.newWidgetHTML = {name:"HTML Widget", type: "HTML",text:""};
+            vm.newWidgetTEXT = {name:"Text Input Widget", type: "INPUT",formatted: false,rows: 1,placeholder:"",text:""};
         }
         init();
 
@@ -100,7 +98,7 @@
             var validationFailed = false;
 
             switch(widgetToTest.type){
-                case "HEADER":
+                case "HEADING":
                     if(widgetToTest.text == '' || widgetToTest.text == null){
                         validationFailed = true;
                     }
@@ -123,7 +121,7 @@
         function updateWidget(){
             if(validateWidgetType(vm.currentWidget)){
                 switch(vm.currentWidget.type) {
-                    case "HEADER":
+                    case "HEADING":
                         vm.error = "Header Text cannot be blank";
                         break;
                     case "IMAGE":

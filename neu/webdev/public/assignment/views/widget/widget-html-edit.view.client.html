@@ -1,0 +1,60 @@
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-10 col-sm-11 col-md-11 col-lg-11">
+                <p class="navbar-text pull-left">
+                    <a href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                </p>
+                <span class="navbar-brand pull-left">Widget Edit</span>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
+                <p class="navbar-text pull-right">
+                    <a href ng-click="model.updateWidget()">
+                        <span class="glyphicon glyphicon-ok"></span>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</nav>
+
+<div class="container-fluid">
+    <div ng-show="model.error" class="alert alert-danger" role="alert">
+        {{model.error}}
+    </div>
+    <form>
+        <div class="form-group">
+            <label for="widgetName">Name</label>
+            <input type="text" id="widgetName" class="form-control" ng-model="model.currentWidget.name"
+                   placeholder="Widget Name"/>
+        </div>
+        <div class="form-group">
+            <label for="widgetHtml">HTML</label>
+            <div id="widgetHtml" ng-model="model.currentWidget.text"
+                 text-angular
+                 ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
+        ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
+        ['indent','outdent'],['html']]">
+            </div>
+        </div>
+        <div class="form-group">
+            <button ng-click="model.deleteWidget()" class="btn btn-block btn-danger">Delete</button>
+        </div>
+    </form>
+</div>
+
+<nav class="navbar navbar-default navbar-fixed-bottom">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-xs-11 col-sm-12 col-md-12 col-lg-12">
+                <p class="navbar-text pull-right">
+                    <a href="#/user/{{model.userId}}">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </a>
+                </p>
+            </div>
+        </div>
+    </div>
+</nav>
