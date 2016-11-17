@@ -59,7 +59,7 @@ module.exports = function (app, model) {
             .findWebsiteById(websiteId)
             .then(
                 function (website) {
-                    res.json(website)
+                    res.json(website);
                 },
                 function (err) {
                     res.sendStatus(400).send(err);

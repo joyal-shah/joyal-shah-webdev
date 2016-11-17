@@ -15,7 +15,19 @@ module.exports = function () {
 
     function createWidget(pageId, widget) {
         widget._page = pageId;
-        return WidgetModel.create(widget);
+
+        return WidgetModel
+            .find({"_page": pageId})
+            .then(
+                function(widgets){
+                    console.log(widgets);
+                    widget.order = widgets.length;
+                    return WidgetModel.create(widget);
+                },
+                function(err){
+                    return null;
+                }
+            );
     }
 
     function findAllWidgetsForPage(pageId) {

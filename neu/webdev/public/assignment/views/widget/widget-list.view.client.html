@@ -23,8 +23,8 @@
 <div class="container-fluid topMargin">
     <div class="container-fluid" jga-sortable>
         <div ng-repeat="widget in model.widgets" class="row topMargin widget-Pos">
-            <div ng-switch="widget.widgetType">
-                <div ng-switch-when="HEADER" class="col-xs-12">
+            <div ng-switch="widget.type">
+                <div ng-switch-when="HEADING" class="col-xs-12">
                     <p class="h{{widget.size}}">
                         {{widget.text}}
                     </p>
@@ -39,7 +39,7 @@
                     <img width="{{widget.width}}" ng-src="{{widget.url}}">
                 </div>
 
-                <div ng-switch-when="YOUTUBE" class="img-rounded col-xs-12">
+                <div ng-switch-when="YOUTUBE" class="img-rounded col-xs-12 youtube-widget">
                     <iframe height="345" ng-src={{model.checkSafeURL(widget.url)}} width={{widget.width}}></iframe>
                 </div>
             </div>

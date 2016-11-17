@@ -1,9 +1,9 @@
-(function(){
+(function () {
     angular
         .module("WebAppMaker")
         .factory("PageService", PageService);
 
-    function PageService($http){
+    function PageService($http) {
 
         var api = {
             createPage: createPage,
@@ -14,55 +14,37 @@
         };
         return api;
 
-        // Generates a unique random integer
-        function getNewPageId(){
-            var date = new Date();
+        function createPage(websiteId, page) {
 
-            var components = [
-                date.getYear(),
-                date.getMonth(),
-                date.getDate(),
-                date.getHours(),
-                date.getMinutes(),
-                date.getSeconds(),
-                date.getMilliseconds()
-            ];
+            var url = "/api/website/" + websiteId + "/page";
 
-            var id = components.join("");
-
-            return id;
-        }
-
-        function createPage(websiteId, page){
-
-            var url = "/api/website/"+websiteId+"/page";
-
-            var newPage = {_id: getNewPageId(),
+            var newPage = {
                 name: page.name,
                 websiteId: websiteId,
-                description: page.description};
+                description: page.description
+            };
 
             return $http.post(url, newPage);
 
         }
 
-        function findPageByWebsiteId(websiteId){
-            var url = "/api/website/"+websiteId+"/page";
+        function findPageByWebsiteId(websiteId) {
+            var url = "/api/website/" + websiteId + "/page";
             return $http.get(url);
         }
 
-        function findPageById(pageId){
-            var url = "/api/page/"+pageId;
+        function findPageById(pageId) {
+            var url = "/api/page/" + pageId;
             return $http.get(url);
         }
 
-        function updatePage(pageId, page){
-            var url = "/api/page/"+pageId;
+        function updatePage(pageId, page) {
+            var url = "/api/page/" + pageId;
             return $http.put(url, page);
         }
 
-        function deletePage(pageId){
-            var url = "/api/page/"+pageId;
+        function deletePage(pageId) {
+            var url = "/api/page/" + pageId;
             return $http.delete(url);
         }
 

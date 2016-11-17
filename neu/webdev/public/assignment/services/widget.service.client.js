@@ -15,28 +15,9 @@
         };
         return api;
 
-        function getNewWidgetId(){
-            var date = new Date();
-
-            var components = [
-                date.getYear(),
-                date.getMonth(),
-                date.getDate(),
-                date.getHours(),
-                date.getMinutes(),
-                date.getSeconds(),
-                date.getMilliseconds()
-            ];
-
-            var id = components.join("");
-
-            return id;
-        }
-
         function createWidget(pageId, widget){
             var url = "/api/page/"+pageId+"/widget";
             var newWidget = widget;
-            newWidget._id = getNewWidgetId();
             newWidget.pageId = pageId;
             return $http.post(url, newWidget);
         }

@@ -32,14 +32,6 @@
             vm.page = {"name": "", "description": ""};
             vm.userId = $routeParams['uid'];
             vm.websiteId = $routeParams['wid'];
-
-            /*PageService.findPageByWebsiteId(vm.websiteId)
-                .success(function (pagesFound) {
-                    vm.pages = pagesFound;
-                })
-                .error(function (err) {
-                    vm.error = "Error while fetching pages!! Please try after sometime";
-                });*/
         }
 
         init();
@@ -77,14 +69,6 @@
                 .error(function (err) {
                     vm.error = "Cannot find current page!! Please try again"
                 });
-
-            /*PageService.findPageByWebsiteId(vm.websiteId)
-                .success(function (pagesFound) {
-                    vm.pages = pagesFound;
-                })
-                .error(function (err) {
-                    vm.error = "Error while fetching pages!! Please try after sometime";
-                });*/
         }
 
         init();
@@ -107,10 +91,10 @@
 
         function deletePage() {
             PageService.deletePage(vm.pageId)
-                .success(function(res){
+                .success(function (res) {
                     $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page");
                 })
-                .error(function(err){
+                .error(function (err) {
                     vm.error = "Failed to delete page";
                 });
         }

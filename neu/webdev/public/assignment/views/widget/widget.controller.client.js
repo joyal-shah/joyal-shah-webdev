@@ -32,7 +32,7 @@
         }
 
         function editRedirect(wdg){
-            if(wdg.widgetType != "HTML") {
+            if(wdg.type != "HTML") {
                 $location.url("/user/" + vm.userId + "/website/" + vm.websiteId + "/page/" + vm.pageId + "/widget/" + wdg._id);
             }
         }
@@ -56,9 +56,11 @@
             vm.websiteId = $routeParams['wid'];
             vm.pageId = $routeParams['pid'];
 
-            vm.newWidgetHeader = {_id: "", widgetType: "HEADER", pageId: vm.pageId, size: 2, text: "New Header Text"};
-            vm.newWidgetImage = {_id: "", widgetType: "IMAGE", pageId: vm.pageId, width: "100%", url: "http://lorempixel.com/400/200/"};
-            vm.newWidgetYouTube = {_id: "", widgetType: "YOUTUBE", pageId: vm.pageId, width: "100%", url: "https://youtu.be/AM2Ivdi9c4E"};
+            vm.newWidgetHeader = {name:"newWidget", type: "HEADING", size: 2, text: "New Header Text"};
+            vm.newWidgetImage = {name:"newWidget", type: "IMAGE", width: "100%", url: "http://lorempixel.com/400/200/"};
+            vm.newWidgetYouTube = {name:"newWidget", type: "YOUTUBE", width: "100%", url: "https://youtu.be/AM2Ivdi9c4E"};
+            vm.newWidgetHTML = {name:"newWidget", type: "HTML"};
+            vm.newWidgetTEXT = {name:"newWidget", type: "INPUT"};
         }
         init();
 
@@ -97,7 +99,7 @@
         function validateWidgetType(widgetToTest){
             var validationFailed = false;
 
-            switch(widgetToTest.widgetType){
+            switch(widgetToTest.type){
                 case "HEADER":
                     if(widgetToTest.text == '' || widgetToTest.text == null){
                         validationFailed = true;
@@ -120,7 +122,7 @@
 
         function updateWidget(){
             if(validateWidgetType(vm.currentWidget)){
-                switch(vm.currentWidget.widgetType) {
+                switch(vm.currentWidget.type) {
                     case "HEADER":
                         vm.error = "Header Text cannot be blank";
                         break;
