@@ -106,8 +106,20 @@ module.exports = function (app, model) {
     }
 
     function updateWidgetOrder(req, res) {
-        var start = req.query.initial;
-        var end = req.query.final;
+        var pageId = req.params.pageId;
+        var start = parseInt(req.query.initial);
+        var end = parseInt(req.query.final);
+
+        model
+            .widgetModel
+            .reorderWidget(pageId, start, end)
+            .then(
+                function (stats) {
+                    res.sendStatus(200);
+                },
+                function (error) {
+                    res.sendStatus(400);
+                });
     }
 
     function uploadImage(req, res) {

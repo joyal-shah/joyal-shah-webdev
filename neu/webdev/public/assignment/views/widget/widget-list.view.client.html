@@ -22,7 +22,7 @@
 
 <div class="container-fluid topMargin">
     <div class="container-fluid" jga-sortable>
-        <div ng-repeat="widget in model.widgets" class="row topMargin widget-Pos">
+        <div ng-repeat="widget in model.widgets| orderBy : 'order'" class="row topMargin widget-Pos">
             <div ng-switch="widget.type">
                 <div ng-switch-when="HEADING" class="col-xs-12">
                     <p class="h{{widget.size}}">

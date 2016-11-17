@@ -19,11 +19,11 @@ module.exports = function () {
         return WidgetModel
             .find({"_page": pageId})
             .then(
-                function(widgets){
+                function (widgets) {
                     widget.order = widgets.length;
                     return WidgetModel.create(widget);
                 },
-                function(err){
+                function (err) {
                     return null;
                 }
             );
@@ -50,6 +50,32 @@ module.exports = function () {
     }
 
     function reorderWidget(pageId, start, end) {
+
+        return WidgetModel
+            .find({_page: pageId}, function (err, widgets) {
+                widgets.forEach(function (widget) {
+                    if (start < end) {
+                        if (widget.order === start) {
+                            widget.order = end;
+                            widget.save();
+                        }
+                        else if (widget.order > start && widget.order <= end) {
+                            widget.order = widget.order - 1;
+                            widget.save();
+                        }
+                    } else {
+                        if (widget.order === start) {
+                            widget.order = end;
+                            widget.save();
+                        }
+
+                        else if (widget.order < start && widget.order >= end) {
+                            widget.order = widget.order + 1;
+                            widget.save();
+                        }
+                    }
+                });
+            });
     }
 
 };
