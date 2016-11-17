@@ -1,4 +1,4 @@
-module.exports = function (app) {
+module.exports = function (app, model) {
 
     var pages = [
         { _id: "321", name: "Post 1", websiteId: "456", description: "Lorem" },
@@ -86,4 +86,4 @@ module.exports = function (app) {
 
         res.sendStatus(deleteSuccessful);
     }
-}
+};

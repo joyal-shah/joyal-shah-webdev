@@ -1,4 +1,4 @@
-module.exports = function (app) {
+module.exports = function (app, model) {
 
     var widgets = [
         {_id: "123", widgetType: "HEADER", pageId: "321", size: 2, text: "GIZMODO"},
