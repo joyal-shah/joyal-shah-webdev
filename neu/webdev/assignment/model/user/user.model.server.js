@@ -1,4 +1,5 @@
 module.exports = function () {
+    var model = {};
     var mongoose = require("mongoose");
     var UserSchema = require("./user.schema.server")();
     var UserModel = mongoose.model("userModel", UserSchema);
@@ -9,9 +10,14 @@ module.exports = function () {
         findUserByUsername: findUserByUsername,
         updateUser: updateUser,
         findUserByCredentials: findUserByCredentials,
-        deleteUser: deleteUser
+        deleteUser: deleteUser,
+        setModel: setModel
     };
     return api;
+
+    function setModel(_model) {
+        model = _model;
+    }
 
     function createUser(user) {
         return UserModel.create(user);

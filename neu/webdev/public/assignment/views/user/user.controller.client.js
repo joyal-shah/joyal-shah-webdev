@@ -65,12 +65,19 @@
         }
 
         function updateProfile(userId) {
-            UserService.updateUser(userId, vm.user)
-                .then(function (response) {
-                    vm.success = "User successfully updated";
-                }, function (error) {
-                    vm.error = "Failed to update user";
-                });
+            if(vm.user.username != "") {
+                UserService.updateUser(userId, vm.user)
+                    .then(function (response) {
+                        vm.error = "";
+                        vm.success = "User successfully updated";
+                    }, function (error) {
+                        vm.success = "";
+                        vm.error = "Failed to update user";
+                    });
+            }
+            else{
+                vm.error = "Username cannot be blank!!!"
+            }
         }
     }
 

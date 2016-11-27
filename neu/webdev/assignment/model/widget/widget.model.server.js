@@ -1,4 +1,5 @@
 module.exports = function () {
+    var model = {};
     var mongoose = require('mongoose');
     var WidgetSchema = require('./widget.schema.server')();
     var WidgetModel = mongoose.model("widgetModel", WidgetSchema);
@@ -9,9 +10,14 @@ module.exports = function () {
         findWidgetById: findWidgetById,
         updateWidget: updateWidget,
         deleteWidget: deleteWidget,
-        reorderWidget: reorderWidget
+        reorderWidget: reorderWidget,
+        setModel: setModel
     };
     return api;
+
+    function setModel(_model) {
+        model = _model;
+    }
 
     function createWidget(pageId, widget) {
         widget._page = pageId;
@@ -21,7 +27,32 @@ module.exports = function () {
             .then(
                 function (widgets) {
                     widget.order = widgets.length;
-                    return WidgetModel.create(widget);
+                    //return WidgetModel.create(widget);
+
+                    return WidgetModel
+                        .create(widget)
+                        .then(
+                            function (newWidget) {
+                                return model
+                                    .pageModel
+                                    .findPageById(pageId)
+                                    .then(
+                                        function (page) {
+                                            page.widgets.push(newWidget);
+                                            newWidget._page = page._id;
+                                            page.save();
+                                            newWidget.save();
+                                            return newWidget;
+                                        },
+                                        function (error) {
+                                            console.log(error);
+                                        }
+                                    );
+                            },
+                            function (error) {
+                                console.log(error);
+                            });
+
                 },
                 function (err) {
                     return null;

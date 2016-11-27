@@ -1,4 +1,5 @@
 module.exports = function () {
+    var model = {};
     var mongoose = require('mongoose');
     var PageSchema = require('./page.schema.server')();
     var PageModel = mongoose.model("pageModel", PageSchema);
@@ -8,13 +9,42 @@ module.exports = function () {
         findAllPagesForWebsite: findAllPagesForWebsite,
         findPageById: findPageById,
         updatePage: updatePage,
-        deletePage: deletePage
+        deletePage: deletePage,
+        setModel: setModel
     };
     return api;
 
+    function setModel(_model) {
+        model = _model;
+    }
+
     function createPage(websiteId, page) {
-        page._website = websiteId;
-        return PageModel.create(page);
+        //page._website = websiteId;
+        //return PageModel.create(page);
+
+        return PageModel
+            .create(page)
+            .then(
+                function (newPage) {
+                    return model
+                        .websiteModel
+                        .findWebsiteById(websiteId)
+                        .then(
+                            function (website) {
+                                website.pages.push(newPage);
+                                newPage._website = website._id;
+                                website.save();
+                                newPage.save();
+                                return newPage;
+                            },
+                            function (error) {
+                                console.log(error);
+                            }
+                        );
+                },
+                function (error) {
+                    console.log(error);
+                });
     }
 
     function findAllPagesForWebsite(websiteId) {

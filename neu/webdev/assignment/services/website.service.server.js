@@ -98,6 +98,5 @@ module.exports = function (app, model) {
                     res.sendStatus(400).send(error);
                 }
             );
-
     }
 };

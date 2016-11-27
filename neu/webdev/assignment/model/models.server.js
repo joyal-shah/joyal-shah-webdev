@@ -1,4 +1,4 @@
-module.exports = function(){
+module.exports = function () {
     var mongoose = require('mongoose');
     mongoose.connect('mongodb://root:admin@ds155087.mlab.com:55087/wam-fall-2016');
 
@@ -13,5 +13,11 @@ module.exports = function(){
         pageModel: pageModel,
         widgetModel: widgetModel
     };
+
+    widgetModel.setModel(model);
+    pageModel.setModel(model);
+    websiteModel.setModel(model);
+    userModel.setModel(model);
+
     return model;
-}
+};
