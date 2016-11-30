@@ -10,6 +10,7 @@ module.exports = function () {
         findWidgetById: findWidgetById,
         updateWidget: updateWidget,
         deleteWidget: deleteWidget,
+        deleteBulkWidgets: deleteBulkWidgets,
         reorderWidget: reorderWidget,
         setModel: setModel
     };
@@ -27,7 +28,6 @@ module.exports = function () {
             .then(
                 function (widgets) {
                     widget.order = widgets.length;
-                    //return WidgetModel.create(widget);
 
                     return WidgetModel
                         .create(widget)
@@ -76,8 +76,41 @@ module.exports = function () {
                 });
     }
 
+    function deleteBulkWidgets(arrWidgetId){
+        return WidgetModel.remove({'_id':{'$in':arrWidgetId}});
+    }
+
     function deleteWidget(widgetId) {
-        return WidgetModel.remove({_id: widgetId});
+
+        return model
+            .widgetModel
+            .findWidgetById(widgetId)
+            .then(function (widget) {
+                return model
+                    .pageModel
+                    .findPageById(widget._page)
+                    .then(
+                        function (page) {
+                            //Remove reference of widgetid in page.widgets array
+                            for (var i = 0; i < page.widgets.length; ++i) {
+                                if (widget._id.equals(page.widgets[i])) {
+                                    page.widgets.splice(i, 1);
+                                    page.save();
+                                    break;
+                                }
+                            }
+                            return WidgetModel
+                                .remove({
+                                    _id: widgetId
+                                });
+
+                        },
+                        function (error) {
+                            console.log(error);
+                        }
+                    )
+
+            });
     }
 
     function reorderWidget(pageId, start, end) {

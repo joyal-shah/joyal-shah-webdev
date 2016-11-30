@@ -40,7 +40,7 @@
                 </div>
 
                 <div ng-switch-when="YOUTUBE" class="img-rounded col-xs-12 youtube-widget">
-                    <iframe height="345" ng-src={{model.checkSafeURL(widget.url)}} width={{widget.width}}></iframe>
+                    <iframe ng-src={{model.checkSafeURL(widget.url)}} width={{widget.width}}></iframe>
                 </div>
 
                 <div ng-switch-when="INPUT" class="img-rounded col-xs-12">
@@ -49,7 +49,7 @@
         ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
         ['indent','outdent'],['html']]" ng-model="widget.text"></div>
                     <input ng-if="!widget.formatted && (!widget.rows || widget.rows===1)"
-                           placeholder="{{widget.textInput.placeholder}}" class="form-control"/>
+                           placeholder="{{widget.placeholder}}" class="form-control" ng-model="widget.text"/>
                     <textarea ng-if="!widget.formatted && (widget.rows > 1)"
                               rows="{{widget.rows}}" placeholder="{{widget.placeholder}}"
                               class="form-control">{{widget.text}}</textarea>

@@ -10,6 +10,7 @@ module.exports = function () {
         findPageById: findPageById,
         updatePage: updatePage,
         deletePage: deletePage,
+        deleteBulkPages: deleteBulkPages,
         setModel: setModel
     };
     return api;
@@ -62,8 +63,51 @@ module.exports = function () {
             });
     }
 
-    function deletePage(pageId) {
-        return PageModel.remove({_id: pageId});
+    function deleteBulkPages(arrPageId){
+        return PageModel.remove({'_id':{'$in':arrPageId}});
     }
 
+    function deletePage(pageId) {
+        return model
+            .pageModel
+            .findPageById(pageId)
+            .then(function (page) {
+                return model
+                    .websiteModel
+                    .findWebsiteById(page._website)
+                    .then(
+                        function (website) {
+                            //Remove reference of pageId in website.pages array
+                            for (var i = 0; i < website.pages.length; ++i) {
+                                if (page._id.equals(website.pages[i])) {
+                                    website.pages.splice(i, 1);
+                                    website.save();
+                                    break;
+                                }
+                            }
+
+                            var widgets = page.widgets;
+
+                            if (0 === widgets.length) {
+                                return PageModel.remove({_id: pageId});
+                            }
+                            else {
+                                return model
+                                    .widgetModel
+                                    .deleteBulkWidgets(widgets)
+                                    .then(function (status) {
+                                            return PageModel.remove({_id: pageId});
+                                        },
+                                        function (error) {
+                                            console.log(error);
+                                        });
+                            }
+                        },
+                        function (error) {
+                            console.log(error);
+                        }
+                    )
+
+            });
+    }
 };

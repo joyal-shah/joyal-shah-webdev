@@ -62,6 +62,57 @@ module.exports = function () {
     }
 
     function deleteWebsite(websiteId) {
-        return WebsiteModel.remove({_id: websiteId});
+        return model
+            .websiteModel
+            .findWebsiteById(websiteId)
+            .then(function (website) {
+                return model
+                    .userModel
+                    .findUserById(website._user)
+                    .then(
+                        function (user) {
+                            //Remove reference of websiteId in user.websites array
+                            for (var i = 0; i < user.websites.length; ++i) {
+                                if (website._id.equals(user.websites[i])) {
+                                    user.websites.splice(i, 1);
+                                    user.save();
+                                    break;
+                                }
+                            }
+
+                            var pages = website.pages;
+
+                            if (0 === pages.length) {
+                                return WebsiteModel.remove({_id: websiteId});
+                            }
+                            else {
+
+                                for (j = 0; j < pages.length; j++) {
+                                    return model
+                                        .pageModel
+                                        .deletePage(pages[j])
+                                        .then(
+                                            function (status) {
+                                                if (0 === pages.length) {
+                                                    return WebsiteModel.remove({_id: websiteId});
+                                                }
+                                                else{
+                                                    return deleteWebsite(websiteId);
+                                                }
+                                            },
+                                            function (error) {
+                                                console.log(error);
+                                            }
+                                        );
+                                }
+                            }
+
+                        },
+                        function (error) {
+                            console.log(error);
+                        }
+                    )
+
+            });
     }
 };
