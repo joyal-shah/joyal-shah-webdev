@@ -39,12 +39,13 @@
                     <img width="{{widget.width}}" ng-src="{{widget.url}}">
                 </div>
 
-                <div ng-switch-when="YOUTUBE" class="img-rounded col-xs-12 youtube-widget">
-                    <iframe ng-src={{model.checkSafeURL(widget.url)}} width={{widget.width}}></iframe>
+                <div ng-switch-when="YOUTUBE" class="img-rounded col-xs-12" ng-style="{'width': widget.width}">
+                    <div class="embed-responsive embed-responsive-16by9">
+                        <iframe ng-src={{model.checkSafeURL(widget.url)}} allowfullscreen></iframe>
+                    </div>
                 </div>
 
                 <div ng-switch-when="INPUT" class="img-rounded col-xs-12">
-
                     <div ng-if="widget.formatted" text-angular ta-toolbar="[['h1','h2','h3'],['bold','italics','underline','strikeThrough'],
         ['ul','ol'],['justifyLeft','justifyCenter','justifyRight','justifyFull'],
         ['indent','outdent'],['html']]" ng-model="widget.text"></div>

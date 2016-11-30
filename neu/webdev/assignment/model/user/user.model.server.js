@@ -78,10 +78,6 @@ module.exports = function () {
                 });
     }
 
-    function deleteUser1(userId) {
-        return UserModel.remove({_id: userId});
-    }
-
     function findUserByCredentials(username, password) {
         return UserModel.find({
             username: username,

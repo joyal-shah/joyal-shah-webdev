@@ -76,7 +76,7 @@
                     });
             }
             else{
-                vm.error = "Username cannot be blank!!!"
+                vm.error = "Username cannot be blank!!!";
             }
         }
     }
