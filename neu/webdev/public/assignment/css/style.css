@@ -113,3 +113,13 @@ a:visited{
     width: 100%;
     height: 100%;
 }
+
+.ng-submitted.ng-invalid .formFieldErrorMsg{
+    color: red;
+    margin-bottom: 10px;
+}
+
+.ng-submitted .ng-invalid{
+    background-color: #f2dede;
+    border-radius: 4px;
+}
