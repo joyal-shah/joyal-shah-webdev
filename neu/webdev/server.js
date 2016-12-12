@@ -2,7 +2,7 @@ var express = require('express');
 var app = express();
 
 var bodyParser = require('body-parser');
-app.use(bodyParser.json());
+app.use(bodyParser.json({ type: 'application/json' }));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // configure a public directives to host static content

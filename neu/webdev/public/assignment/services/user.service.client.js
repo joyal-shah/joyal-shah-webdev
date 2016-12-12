@@ -11,10 +11,47 @@
             findUserByCredentials: findUserByCredentials,
             findUserById: findUserById,
             findUserByUsername: findUserByUsername,
+            findCurrentUser: findCurrentUser,
             updateUser: updateUser,
-            deleteUser: deleteUser
+            deleteUser: deleteUser,
+            login:login,
+            checkLogin:checkLogin,
+            logout:logout,
+            register: register
         };
         return api;
+
+        function findCurrentUser(){
+            var url = "/api/user/";
+            return $http.get(url);
+        }
+
+        function logout(){
+            return $http.post("/api/logout");
+        }
+
+        function checkLogin(){
+            return $http.post("/api/checkLogin");
+        }
+
+        function login(username,password){
+            var user = {
+                username: username,
+                password: password
+            };
+
+            return $http.post("/api/login", user);
+        }
+
+        function register(user){
+            var newUser = {
+                username: user.username,
+                password: user.password,
+                firstName: "",
+                lastName: ""
+            };
+            return $http.post("/api/register", newUser);
+        }
 
         // Adds the user parameter instance to the local users array
         function createUser(user) {

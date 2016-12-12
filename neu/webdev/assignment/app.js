@@ -6,4 +6,4 @@ module.exports = function (app) {
     require("./services/website.service.server.js")(app, model);
     require("./services/page.service.server.js")(app, model);
     require("./services/widget.service.server.js")(app, model);
-}
+};

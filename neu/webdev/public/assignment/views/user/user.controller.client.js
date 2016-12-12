@@ -5,22 +5,20 @@
         .controller("ProfileController", ProfileController)
         .controller("RegisterController", RegisterController);
 
-    function LoginController($location, UserService) {
+    function LoginController($location, $rootScope,UserService) {
 
         var vm = this;
         vm.error = null;
         vm.login = login;
 
         function login(username, password) {
-            var promise = UserService.findUserByCredentials(username, password);
+            //var promise = UserService.findUserByCredentials(username, password);
+            var promise = UserService.login(username,password);
             promise
                 .success(function (user) {
-                    if (user === '0') {
-                        vm.error = "No such user";
-                    }
-                    else {
-                        $location.url("/user/" + user._id);
-                    }
+                    $rootScope.currentUser = user;
+                    $location.url("/user/"+user._id);
+                    //$location.url("/user");
                 })
                 .error(function (err) {
                     vm.error = err;
@@ -28,15 +26,16 @@
         }
     }
 
-    function ProfileController($routeParams, UserService, $location) {
+    function ProfileController($routeParams, UserService,$location, $rootScope) {
 
         var vm = this;
         vm.updateProfile = updateProfile;
         vm.unregisterUser = unregisterUser;
+        vm.logout = logout;
 
         function init() {
-
-            var promise = UserService.findUserById($routeParams.uid);
+            //var promise = UserService.findUserById($routeParams.uid);
+            var promise = UserService.findCurrentUser();
             promise
                 .success(function (user) {
                     if (user === '0') {
@@ -60,6 +59,7 @@
                     $location.url("/login");
                 })
                 .error(function (err) {
+                    $rootScope.currentUser = null;
                     vm.error = err;
                 });
         }
@@ -79,9 +79,18 @@
                 vm.error = "Username cannot be blank!!!";
             }
         }
+
+        function logout(){
+            UserService
+                .logout()
+                .success(function(){
+                    $rootScope.currentUser = null;
+                    $location.url("/login");
+                })
+        }
     }
 
-    function RegisterController($location, UserService) {
+    function RegisterController($location, UserService,$rootScope) {
         var vm = this;
         vm.createNewUser = createNewUser;
 
@@ -91,18 +100,25 @@
                 var findUserPromise = UserService.findUserByUsername(user.username);
 
                 findUserPromise
-                    .success(function (user) {
-                        vm.error = "User already existing!! Please try different username";
+                    .success(function (resUser) {
+                        if(resUser != '0'){
+                            vm.error = "User already existing!! Please try different username";
+                        }
+                        else{
+                            //var promise = UserService.createUser(user);
+                            var promise = UserService.register(user);
+                            promise
+                                .success(function (user) {
+                                    $rootScope.currentUser = user;
+                                    $location.url("/user/" + user._id);
+                                })
+                                .error(function (err) {
+                                    vm.error = "Failed to create user. Please try again!!"
+                                });
+                        }
                     })
                     .error(function (err) {
-                        var promise = UserService.createUser(user);
-                        promise
-                            .success(function (user) {
-                                $location.url("/user/" + user._id);
-                            })
-                            .error(function (err) {
-                                vm.error = "Failed to create user. Please try again!!"
-                            });
+                        vm.error = err;
                     });
             }
             else {
