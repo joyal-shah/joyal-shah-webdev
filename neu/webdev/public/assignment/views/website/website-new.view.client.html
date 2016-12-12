@@ -1,91 +1,104 @@
 <nav class="navbar navbar-default navbar-fixed-top">
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-5 col-lg-5 hidden-xs hidden-sm ">
-            <p class="navbar-text pull-left">
-                <a href="#/user/{{model.userId}}/website">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-            </p>
-            <span class="navbar-brand pull-left">Websites</span>
-            <p class="navbar-text pull-right">
-                <a href="#/user/{{model.userId}}/website/new">
-                    <span class="glyphicon glyphicon-plus"></span>
-                </a>
-            </p>
-        </div>
-        <div class="col-xs-9 col-sm-10 col-md-6 col-lg-6">
-            <p class="navbar-text pull-left visible-xs visible-sm">
-                <a href="/user/{{model.userId}}/website">
-                    <span class="glyphicon glyphicon-chevron-left"></span>
-                </a>
-            </p>
-            <span class="navbar-brand pull-left">New Website</span>
-        </div>
-        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 pull-right">
-            <p class="navbar-text pull-right">
-                <a href ng-click="model.createNewWebsite(model.website)">
-                    <span class="glyphicon glyphicon-ok pull-right"></span>
-                </a>
-            </p>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5 col-lg-5 hidden-xs hidden-sm ">
+                <p class="navbar-text pull-left">
+                    <a href="#/user/{{model.userId}}/website">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                </p>
+                <span class="navbar-brand pull-left">Websites</span>
+                <p class="navbar-text pull-right">
+                    <a href="#/user/{{model.userId}}/website/new">
+                        <span class="glyphicon glyphicon-plus"></span>
+                    </a>
+                </p>
+            </div>
+            <div class="col-xs-9 col-sm-10 col-md-6 col-lg-6">
+                <p class="navbar-text pull-left visible-xs visible-sm">
+                    <a href="/user/{{model.userId}}/website">
+                        <span class="glyphicon glyphicon-chevron-left"></span>
+                    </a>
+                </p>
+                <span class="navbar-brand pull-left">New Website</span>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 pull-right">
+                <p class="navbar-text pull-right">
+                    <a href="javascript:$('#websiteCreate').click();">
+                        <span class="glyphicon glyphicon-ok pull-right"></span>
+                    </a>
+                </p>
+            </div>
         </div>
     </div>
-</div>
 </nav>
 
 <div class="container-fluid">
-    <div class="container-fluid col-md-5 col-lg-5 hidden-xs hidden-sm v-divider" >
-    <div class="topMargin">
-        <div class="row">
-            <div ng-repeat="website in model.websites">
-                <div class="col-md-10 col-lg-10">
-                    <a href="#/user/{{model.userId}}/website/{{website._id}}/page" class="pull-left blue anchorMargin">
-                        {{website.name}}
-                    </a>
-                </div>
-                <div class="col-md-2 col-lg-2">
-                    <a href="#/user/{{model.userId}}/website/{{website._id}}" class="pull-left anchorMargin">
-                        <span class="glyphicon glyphicon-cog"></span>
-                    </a>
+    <div class="container-fluid col-md-5 col-lg-5 hidden-xs hidden-sm v-divider">
+        <div class="topMargin">
+            <div class="row">
+                <div ng-repeat="website in model.websites">
+                    <div class="col-md-10 col-lg-10">
+                        <a href="#/user/{{model.userId}}/website/{{website._id}}/page"
+                           class="pull-left blue anchorMargin">
+                            {{website.name}}
+                        </a>
+                    </div>
+                    <div class="col-md-2 col-lg-2">
+                        <a href="#/user/{{model.userId}}/website/{{website._id}}" class="pull-left anchorMargin">
+                            <span class="glyphicon glyphicon-cog"></span>
+                        </a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
     <div class="container-fluid col-xs-11 col-sm-12 col-md-7 col-lg-7">
+        <div ng-show="!model.error && websiteForm.$submitted && websiteForm.$invalid" class="alert alert-danger"
+             role="alert">
+            There are errors in the website form
+        </div>
         <div ng-show="model.error" class="alert alert-danger" role="alert">
             {{model.error}}
         </div>
-        <form>
+
+        <form name="websiteForm" id="websiteForm" novalidate
+              ng-submit="websiteForm.$valid && model.createNewWebsite(model.website)">
             <div class="form-group">
                 <label for="websiteName">Name</label>
-                <input type="text" class="form-control" ng-model="model.website.name" id="websiteName" placeholder="Name"/>
+                <input type="text" class="form-control" ng-model="model.website.name" id="websiteName"
+                       placeholder="Name" name="websiteName" required/>
+                <div ng-show="websiteForm.$submitted && websiteForm.websiteName.$invalid" class="formFieldErrorMsg">
+                    Website Name is a required field
+                </div>
             </div>
             <div class="form-group">
                 <label for="websiteDescription">Description</label>
                 <textarea class="form-control" rows="6" ng-model="model.website.description" id="websiteDescription"
                           placeholder="Description"></textarea>
             </div>
+            <button type="submit" class="btn btn-primary btn-block" id="websiteCreate" style="display: none">Create Website</button>
+
         </form>
     </div>
 </div>
 
 <nav class="navbar navbar-default navbar-fixed-bottom">
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-5 col-lg-5 hidden-xs hidden-sm ">
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-md-5 col-lg-5 hidden-xs hidden-sm ">
 
-        </div>
-        <div class="col-xs-9 col-sm-10 col-md-6 col-lg-6">
+            </div>
+            <div class="col-xs-9 col-sm-10 col-md-6 col-lg-6">
 
-        </div>
-        <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 pull-right">
-            <p class="navbar-text pull-right">
-                <a href="#/user/{{model.userId}}">
-                    <span class="glyphicon glyphicon-user"></span>
-                </a>
-            </p>
+            </div>
+            <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1 pull-right">
+                <p class="navbar-text pull-right">
+                    <a href="#/user/{{model.userId}}">
+                        <span class="glyphicon glyphicon-user"></span>
+                    </a>
+                </p>
+            </div>
         </div>
     </div>
-</div>
 </nav>
