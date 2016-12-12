@@ -11,7 +11,7 @@
             </div>
             <div class="col-xs-1 col-sm-1 col-md-1 col-lg-1">
                 <p class="navbar-text pull-right">
-                    <a href ng-click="model.updateWidget()">
+                    <a href="javascript:$('#updateWidget').click()">
                         <span class="glyphicon glyphicon-ok"></span>
                     </a>
                 </p>
@@ -21,13 +21,21 @@
 </nav>
 
 <div class="container-fluid">
+    <div ng-show="!model.error && widgetForm.$submitted && widgetForm.$invalid" class="alert alert-danger"
+         role="alert">
+        There are errors in the widget form
+    </div>
     <div ng-show="model.error" class="alert alert-danger" role="alert">
         {{model.error}}
     </div>
-    <form action="/api/upload" method="post" enctype="multipart/form-data">
+    <form name="widgetForm" id="widgetForm" novalidate
+          ng-submit="widgetForm.$valid && model.updateWidget()">
         <div class="form-group">
             <label for="widgetName">Name</label>
-            <input type="text" id="widgetName" class="form-control" ng-model="model.currentWidget.name" placeholder="Widget Name"/>
+            <input type="text" required name="widgetName" id="widgetName" class="form-control" ng-model="model.currentWidget.name" placeholder="Widget Name"/>
+            <div ng-show="widgetForm.$submitted && widgetForm.widgetName.$invalid" class="formFieldErrorMsg">
+                Widget Name is a required field
+            </div>
         </div>
         <div class="form-group">
             <div class="form-group">
@@ -36,6 +44,10 @@
                        placeholder="Widget Text"/>
             </div>
         </div>
+        <button id="updateWidget" type="submit" class="btn btn-primary btn-block" style="display: none;">Update Widget</button>
+    </form>
+    <form action="/api/upload" method="post" enctype="multipart/form-data">
+
         <div class="form-group">
             <div class="form-group">
                 <label for="widgetURL">URL</label>
@@ -59,10 +71,11 @@
             <input name="websiteId" value="{{model.websiteId}}" style="display: none"/>
             <input name="pageId" value="{{model.pageId}}" style="display: none"/>
             <button type="submit" class="btn btn-block btn-primary">Upload Image</button>
-            <a class="btn btn-primary btn-block"
-               href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.currentWidgetId}}/flickr">Search</a>
-            <a href ng-click="model.deleteWidget()" class="btn btn-block btn-danger">Delete</a>
+
         </div>
+        <a class="btn btn-primary btn-block"
+           href="#/user/{{model.userId}}/website/{{model.websiteId}}/page/{{model.pageId}}/widget/{{model.currentWidgetId}}/flickr">Search</a>
+        <a href ng-click="model.deleteWidget()" class="btn btn-block btn-danger">Delete</a>
     </form>
 </div>
 
