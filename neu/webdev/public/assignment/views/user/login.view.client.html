@@ -1,53 +1,12 @@
 <div class="container">
 
     <div ng-show="!model.error && loginForm.$submitted && loginForm.$invalid" class="alert alert-danger" role="alert">
-        There are errors in your form
+        There are errors in the form
     </div>
 
     <div ng-show="model.error" class="alert alert-danger" role="alert">
         {{model.error}}
     </div>
-
-    <!--<div class="form-group" ng-form name="loginForm">
-        <h1>Login</h1>
-        <input type="text"
-               class="form-control"
-               ng-model="model.username"
-               placeholder="username"
-               required
-               autocorrect="off"
-               autocapitalize="off"
-               ng-class="{ 'error-when' : submitted && loginForm.model.username.$error.required }"/>
-        <span ng-show="submitted && loginForm.model.username.$error.required"
-              class="err">
-            *Required Field
-        </span>
-        <input type="password"
-               ng-model="model.password"
-               class="form-control"
-               placeholder="password"
-               required
-               ng-class="{ 'error-when' : submitted && loginForm.model.password.$error.required }"/>
-        <span ng-show="submitted && loginForm.model.password.$error.required"
-              class="err">
-            *Required Field
-        </span>
-        <a class="btn btn-primary btn-block"
-           ng-click="model.login(model.username,model.password)"
-           submitted=true"
-           type="submit"
-           role="button">Login</a>
-        <a class="btn btn-success btn-block"
-           href="#/register" role="button">Register</a>
-        <a href="/auth/google" class="btn btn-danger btn-block" role="button">
-            <span class="fa fa-google-plus"></span>
-            Google
-        </a>
-        <a href="/auth/facebook" class="btn btn-primary btn-block" role="button">
-            <span class="fa fa-facebook"></span>
-            Facebook
-        </a>
-    </div>-->
 
     <form name="loginForm" novalidate ng-submit="loginForm.$valid && model.login(model.username,model.password)">
         <h1>Login</h1>
@@ -73,7 +32,7 @@
                id="password"
                placeholder="password"/>
         <div ng-show ="loginForm.$submitted && loginForm.password.$invalid" class="formFieldErrorMsg">
-            Password is required
+            Password is a required field
         </div>
 
         <button type="submit" class="btn btn-primary btn-block">

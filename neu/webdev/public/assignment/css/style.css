@@ -123,3 +123,13 @@ a:visited{
     background-color: #f2dede;
     border-radius: 4px;
 }
+
+div#mismatchData.formFieldErrorMsg{
+    color: red;
+    margin-bottom: 10px;
+}
+
+div#mismatchData{
+    background-color: #f2dede;
+    border-radius: 4px;
+}

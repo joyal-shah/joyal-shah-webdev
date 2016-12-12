@@ -1,24 +1,59 @@
 <div class="container">
 
+    <div ng-show="!model.error && registerForm.$submitted && registerForm.$invalid" class="alert alert-danger"
+         role="alert">
+        There are errors in the register form
+    </div>
+
     <div ng-show="model.error" class="alert alert-danger" role="alert">
         {{model.error}}
     </div>
 
-    <h1>Register</h1>
-    <input type="text"
-           class="form-control"
-           ng-model="model.user.username"
-           placeholder="username"/>
-    <input type="password"
-           class="form-control"
-           ng-model="model.user.password"
-           placeholder="password"/>
-    <input type="password"
-           class="form-control"
-           ng-model="model.user.verifypassword"
-           placeholder="verify password"/>
-    <a class="btn btn-primary btn-block"
-       href ng-click="model.createNewUser(model.user)">Register</a>
-    <a class="btn btn-danger  btn-block"
-       href="#/login">Cancel</a>
+    <form name="registerForm" novalidate ng-submit="registerForm.$valid && model.createNewUser(model.user)">
+        <h1>Register</h1>
+        <input type="text"
+               class="form-control"
+               ng-model="model.user.username"
+               name="username"
+               placeholder="username"
+               required
+               autocorrect="off" autocapitalize="off"/>
+
+        <div ng-show="registerForm.$submitted && registerForm.username.$invalid" class="formFieldErrorMsg">
+            Username is a required field
+        </div>
+
+        <input type="password"
+               class="form-control"
+               ng-model="model.user.password"
+               placeholder="password"
+               name="password"
+               required/>
+
+        <div ng-show="registerForm.$submitted && registerForm.password.$invalid" class="formFieldErrorMsg">
+            Password is a required field
+        </div>
+
+        <input type="password"
+               class="form-control"
+               ng-model="model.user.verifypassword"
+               placeholder="verify password"
+               name="verifypassword"
+               required/>
+
+        <div ng-show="registerForm.$submitted && registerForm.verifypassword.$invalid" class="formFieldErrorMsg">
+            Verify Password is a required field
+        </div>
+
+        <div id="mismatchData" ng-show="registerForm.$submitted && registerForm.verifypassword.$valid && registerForm.password.$valid && (model.user.password !== model.user.verifypassword)" class="formFieldErrorMsg">
+            Both passwords must match
+        </div>
+
+        <button class="btn btn-primary btn-block">Register</button>
+
+        <a class="btn btn-danger  btn-block"
+           href="#/login">Cancel</a>
+
+    </form>
+
 </div>
