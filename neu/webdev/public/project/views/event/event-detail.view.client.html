@@ -1,0 +1,90 @@
+<div class="container">
+
+    <div class="row">
+        <div class="col-md-9">
+
+            <div class="thumbnail">
+                <img ng-if="model.event.group.photo.photo_link"
+                     class="img-responsive detail"
+                     ng-src="{{model.event.group.photo.photo_link}}"
+                >
+                <!--col-xs-2 col-sm-2 col-md-2 col-lg-2 eventResultImage" -->
+
+                <img ng-if="!model.event.group.photo.photo_link"
+                     class="img-responsive detail"
+                     ng-src="http://www.aviatorcameragear.com/wp-content/uploads/2012/07/placeholder-730x456.jpg">
+                <div class="caption-full">
+
+                    <h4 class="event-detail"><strong>{{model.event.name}}</strong></h4>
+                    <hr>
+                    <h4 class="event-detail">Start Date: <mydate>{{model.event.time | date:'MMM dd, yyyy'}}</mydate> </h4>
+
+                    <h4 class="event-detail">Description:</h4>
+
+                    <div ng-if="model.event.description" ng-bind-html="model.getDescription()"></div>
+                </div>
+
+                <div class="text-right">
+
+                </div>
+            </div>
+
+        </div>
+        <div class="col-md-3">
+
+            <div>
+                <a ng-if="!model.isFavourite && model.currentUser.userType=='user'" class="btn btn-primary margin-button waves-effect waves-light"
+                   ng-click="model.addToFavourites(model.event)">
+                    Add to Favourites</a>
+            </div>
+            <div>
+
+            <a ng-if="model.isFavourite && model.currentUser.userType=='user'" class="btn btn-primary margin-button waves-effect waves-light"
+               ng-click="model.removeFromFavourites(model.eventId)">
+                Remove from Favourites</a>
+            </div>
+
+            <div>
+                <a target=_blank" class="btn btn-danger margin-button" href={{model.event.link}}>View Event on Meetup</a>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-9">
+
+            <div ng-if="model.isFavourite" class="well">
+
+                <div ng-if="!model.commentExists" class="text-right">
+                    <a class="btn btn-success" href="#/user/{{model.currentUser._id}}/group/{{model.event.group.urlname}}/meetup/{{model.event.id}}/event/{{model.eventId}}/comment/new">Add a Comment</a>
+
+                </div>
+
+                <div class="row" ng-repeat="comment in model.comments">
+                    <hr>
+                    <div class="col-md-12">
+
+                        <strong>{{comment.username}}</strong>
+
+                        <a
+                           ng-click="model.upVoteComment(model.currentUser._id, comment._id)"
+                           class="pull-right">
+                            <span ng-if="comment.username!=model.currentUser.username && !comment.liked"
+                                  class="glyphicon glyphicon-thumbs-up pull-right" style="color:#00897B!important;"></span></a>
+                        <a
+                           ng-click="model.downVoteComment(model.currentUser._id, comment._id)"
+                        class="pull-right">
+                            <span ng-if="comment.username!=model.currentUser.username && comment.liked"
+                                  class="glyphicon glyphicon-thumbs-down" style="color:#00897B!important;"></span></a>
+
+                            <p class="comment">{{comment.text}}</p>
+                            <div ng-if="comment.username==model.currentUser.username"  class="text-right">
+                                <a class="btn btn-success" href="#/user/{{model.currentUser._id}}/group/{{model.event.group.urlname}}/meetup/{{model.event.id}}/event/{{model.eventId}}/comment/{{comment._id}}/edit">Edit Comment</a>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+</div>

@@ -1,0 +1,52 @@
+<div class="container">
+
+    <div ng-if="model.success" class="alert alert-success alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Success!</strong> {{model.success}}
+    </div>
+
+    <div ng-if="model.error" class="alert alert-danger alert-dismissible" role="alert">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <strong>Error!</strong> {{model.error}}
+    </div>
+    <h3>Edit Profile</h3>
+    <div class="row">
+
+        <div class="col-md-9">
+
+            <div class="well">
+                <form>
+                    <div class="form-group">
+                        <label for="username">Username</label>
+                        <input ng-model="model.user.username"
+                               type="text"
+                               class="form-control"
+                               id="username"
+                               placeholder="Username">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email address</label>
+                        <input ng-model="model.user.email"
+                               type="email" class="form-control" id="email" placeholder="alice@wonderland.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="first-name">First Name</label>
+                        <input ng-model="model.user.firstName" type="text" class="form-control" id="first-name" placeholder="Alice">
+                    </div>
+                    <div class="form-group">
+                        <label for="last-name">Last Name</label>
+                        <input ng-model="model.user.lastName" type="text" class="form-control" id="last-name" placeholder="Wonderland">
+                    </div>
+
+                    <button class="btn btn-primary"
+                       ng-click="model.updateUserByAdmin(model.user)">Save Changes</button>
+
+                    <button class="btn btn-danger"
+                            ng-click="model.deleteUserByAdmin(model.user._id)">Delete User</button>
+   </form>
+            </div>
+        </div>
+
+    </div>
+
+</div>

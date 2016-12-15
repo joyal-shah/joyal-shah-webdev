@@ -1,0 +1,64 @@
+
+</div><div class="container">
+
+    <div class="well form">
+        <form novalidate name="newUserForm">
+            <h3>Create New User</h3>
+
+                <div class="col-md-6 form-group">
+                    <label>Username</label>
+                    <input type="text"
+                           class="form-control"
+                           placeholder="username"
+                           required
+                           ng-model="username"
+                           name="username"/>
+                    <div ng-show="newUserForm.username.$invalid && newUserForm.$submitted"
+                         class="message">
+                        Username is a required field.
+                    </div>
+                </div>
+                <div class="col-md-6 form-group">
+                    <label>Password</label>
+                    <input type="password"
+                           class="form-control"
+                           placeholder="password"
+                           required
+                           ng-model="password"
+                           name="password"/>
+                    <div ng-show="newUserForm.password.$invalid && newUserForm.$submitted"
+                         class="message">
+                        Password is a required field.
+                    </div>
+                </div>
+            <div class="form-group admin-register">
+
+                    <button class="btn btn-primary"
+                            ng-click="newUserForm.$valid && model.addUser(username,password)"
+                            type="submit">Add User</button></div>
+        </form>
+    </div>
+
+    <h3></h3>
+    <table title="All Users" ng-if=" model.adminUsers.length > 0" class="table table-striped  table-bordered">
+
+        <thead>
+        <tr>
+            <th ng-repeat="(key, value) in model.adminUsers[0]" ng-show="key!='_id'">{{key}}</th>
+            <th>View</th>
+            <th>Edit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="user in model.adminUsers">
+            <td ng-repeat="(key, value) in user" ng-show="key!='_id'">{{value}}</td>
+            <td>
+                <a href="#/admin/view/{{user._id}}" class="btn btn-success btn-block">View</a>
+            </td>
+            <td>
+                <a href="#/admin/edit/{{user._id}}" class="btn btn-danger btn-block">Edit</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>

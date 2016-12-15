@@ -1,10 +1,71 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" ng-app="CampApp">
 <head>
-    <meta charset="UTF-8">
-    <title>Project Home Page</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="Joyal Shah">
+
+    <title>Meet Out - Get best meet out events</title>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" rel="stylesheet"/>
+    <!--<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>-->
+    <!--<link href="../css/textAngular.css" rel="stylesheet"/>-->
+    <!--<link href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css" rel="stylesheet">-->
+    <!--<link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-social/5.0.0/bootstrap-social.min.css" rel="stylesheet">-->
+    <link href="../css/modern-business.css" rel="stylesheet"/>
+    <link href="css/style.css" rel="stylesheet"/>
+
+
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+
+    <!-- jQuery -->
+    <script src="../js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="../js/bootstrap.min.js"></script>
+
+    <!-- Referencing Angular Libs -->
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
+
+
+    <script type="text/javascript" src="app.js"></script>
+    <script type="text/javascript" src="config.js"></script>
+
+    <link rel="icon" href="../img/tent2.png"/>
+
+    <!--- Services -->
+    <script type="text/javascript" src="services/user.service.client.js"></script>
+    <script type="text/javascript" src="services/meetup.service.client.js"></script>
+    <script type="text/javascript" src="services/comment.service.client.js"></script>
+
+    <!--- Controller -->
+    <script type="text/javascript" src="views/home/home.controller.client.js"></script>
+    <script type="text/javascript" src="views/meetup/meetup-search.controller.client.js"></script>
+    <script type="text/javascript" src="views/user/login.controller.client.js"></script>
+    <script type="text/javascript" src="views/user/profile.controller.client.js"></script>
+    <script type="text/javascript" src="views/user/register.controller.client.js"></script>
+    <script type="text/javascript" src="views/user/edit-user.controller.client.js"></script>
+    <script type="text/javascript" src="views/user/view-user.controller.client.js"></script>
+    <script type="text/javascript" src="views/comment/new-comment.controller.client.js"></script>
+    <script type="text/javascript" src="views/comment/edit-comment.controller.client.js"></script>
+    <script type="text/javascript" src="views/event/event-detail.controller.client.js"></script>
+    <script type="text/javascript" src="views/event/event-search.controller.client.js"></script>
+    <script type="text/javascript" src="views/event/fav-events.controller.client.js"></script>
+
 </head>
 <body>
-    <h1>Project Home Page</h1>
+<div ng-include src="'views/header/header.view.client.html'"></div>
+    <div ng-view></div>
+<!--<div ng-include src="'views/footer/footer.view.client.html'"></div>-->
 </body>
 </html>

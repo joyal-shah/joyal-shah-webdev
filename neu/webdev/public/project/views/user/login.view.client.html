@@ -1,0 +1,40 @@
+<div class="container">
+
+
+    <div ng-if="model.error"
+         class="alert alert-danger">
+        {{model.error}}</div>
+
+    <h1>Login</h1>
+    <form novalidate name="signInForm">
+        <input type="text"
+               class="form-control"
+               ng-model="username"
+               required
+               placeholder="username"
+               name="username"
+               autocorrect="off" autocapitalize="none"/>
+        <div ng-show="signInForm.username.$invalid && signInForm.$submitted"
+             class="message">
+            Username is a required field.
+        </div>
+        <input type="password"
+               class="form-control"
+               ng-model="password"
+               required
+               placeholder="password"
+               name="password"
+               autocorrect="off" autocapitalize="none"/>
+        <div ng-show="signInForm.password.$invalid && signInForm.$submitted"
+             class="message">
+            Password is a required field.
+        </div>
+        <button ng-click="signInForm.$valid && model.login(username, password)"
+                class="btn btn-primary btn-block"
+                type="submit">Login</button>
+        <a href="/auth/google"
+           class="btn btn-danger btn-block">
+            <span class="fa fa-google-plus"/>
+            Google</a>
+    </form>
+</div>

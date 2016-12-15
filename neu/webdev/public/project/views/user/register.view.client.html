@@ -1,0 +1,48 @@
+<div class="container">
+
+    <div ng-if="model.error"
+         class="alert alert-danger">{{model.error.data}}</div>
+    <div ng-show="registerForm.$submitted && registerForm.password.$viewValue != registerForm.verifypass.$viewValue"
+         class="alert alert-danger">Passwords Don't match</div>
+    <h1>Register</h1>
+    <form novalidate name="registerForm">
+
+    <input type="text"
+           class="form-control"
+           ng-model="model.user.username"
+           placeholder="username"
+           required
+           name="username"/>
+        <div ng-show="registerForm.username.$invalid && registerForm.$submitted"
+             class="message">
+            Username is a required field.
+        </div>
+    <input type="password"
+           class="form-control"
+           ng-model="model.user.password"
+           placeholder="password"
+           required
+           name="password"/>
+        <div ng-show="registerForm.password.$invalid && registerForm.$submitted"
+             class="message">
+            Password is a required field.
+        </div>
+    <input type="password"
+           class="form-control"
+           ng-model="model.user.verifypass"
+           placeholder="verify password"
+           required
+           name="verifypass"/>
+        <div ng-show="registerForm.verifypass.$invalid && registerForm.$submitted"
+             class="message">
+            Verify your password.
+        </div>
+    <button class="btn btn-primary btn-block"
+       ng-click="registerForm.$valid && model.createUser(model.user)"
+       type="submit">Register</button>
+    <a class="btn btn-danger  btn-block"
+       href="#/login">Cancel</a>
+        </form>
+
+
+</div>

@@ -1,0 +1,24 @@
+<div class="container">
+    <form novalidate name="EditCommentForm" >
+        <h4>Edit Comment</h4>
+        <div class="form-group">
+
+             <textarea rows="4"
+                       id="comment-text"
+                       class="form-control"
+                       ng-model="model.comment.text"
+                       placeholder="Description"
+                       required
+                       name="text"></textarea>
+            <div ng-show="EditCommentForm.text.$invalid && EditCommentForm.$submitted"
+                 class="message">
+                Comment is a required field.
+            </div>
+        </div>
+
+        <button type="sumbit" ng-click="EditCommentForm.$valid && model.updateComment(model.comment)" class="btn btn-primary  btn-block">Save</button>
+        <button type="sumbit" ng-click="EditCommentForm.$valid && model.deleteComment(model.comment._id)" class="btn btn-danger  btn-block">Delete</button>
+    </form>
+</div>
+
+

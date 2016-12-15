@@ -1,0 +1,23 @@
+<div class="container">
+    <form novalidate name="CommentForm" >
+        <h4>New Comment</h4>
+        <div class="form-group">
+
+             <textarea rows="4"
+                       id="comment-text"
+                       class="form-control"
+                       ng-model="text"
+                       placeholder="Description"
+                       required
+                       name="text"></textarea>
+            <div ng-show="CommentForm.text.$invalid && CommentForm.$submitted"
+                 class="message">
+                Comment is a required field.
+            </div>
+        </div>
+
+        <button type="sumbit" ng-click="CommentForm.$valid && model.addComment(text)" class="btn btn-danger  btn-block">Add Comment</button>
+    </form>
+</div>
+
+
